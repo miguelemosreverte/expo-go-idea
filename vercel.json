@@ -4,6 +4,6 @@
   "buildCommand": "pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api" }
+    { "source": "/(.*)", "destination": "/api/index" }
   ]
 }
