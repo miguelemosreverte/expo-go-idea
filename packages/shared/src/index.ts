@@ -18,3 +18,6 @@ export type { Skill, Plugin } from './types/skill.js';
 export { API_ROUTES } from './constants/api-routes.js';
 export { EVENT_TYPES } from './constants/event-types.js';
 export type { EventType } from './constants/event-types.js';
+
+// OpenCode SDK re-exports
+export { createOpencodeClient } from '@opencode-ai/sdk';
