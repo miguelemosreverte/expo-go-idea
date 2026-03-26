@@ -58,7 +58,7 @@ app.get('/health', async (c) => {
 
   try {
     const res = await fetch(`http://${host}:${port}/global/health`, {
-      signal: AbortSignal.timeout(3000),
+      signal: AbortSignal.timeout(1500),
     });
     if (res.ok) {
       opencodeStatus = 'connected';
