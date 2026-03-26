@@ -9,7 +9,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gaucho.cowork"
+      "bundleIdentifier": "com.gaucho.cowork",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Necesitamos acceso a la cámara para escanear códigos QR del servidor"
+      }
     },
     "android": {
       "package": "com.gaucho.cowork"

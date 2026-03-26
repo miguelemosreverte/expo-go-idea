@@ -5,6 +5,8 @@ services:
       dockerfile: apps/gateway/Dockerfile
     ports:
       - '3000:3000'
+    env_file:
+      - .env
     environment:
       - PORT=3000
       - OPENCODE_HOST=opencode
@@ -14,11 +16,14 @@ services:
     depends_on:
       opencode:
         condition: service_healthy
+    restart: unless-stopped
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - gaucho
 
   opencode:
     image: golang:1.22-alpine
@@ -31,11 +36,24 @@ services:
       - '4096:4096'
     volumes:
       - ./demo-project:/workspace
+      - opencode-data:/root/.opencode
+    env_file:
+      - .env
     environment:
       - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:-opencode}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    restart: unless-stopped
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:4096/global/health']
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+      - gaucho
+
+networks:
+  gaucho:
+    driver: bridge
+
+volumes:
+  opencode-data:

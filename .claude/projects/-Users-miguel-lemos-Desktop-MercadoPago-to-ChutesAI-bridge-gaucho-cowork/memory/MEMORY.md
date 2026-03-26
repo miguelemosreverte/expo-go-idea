@@ -1,0 +1,1 @@
+- [Autonomous work style](feedback_autonomous.md) — User wants continuous work, no stopping to check in

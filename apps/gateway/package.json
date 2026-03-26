@@ -2,6 +2,7 @@
   "name": "@gaucho/gateway",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
@@ -12,12 +13,14 @@
   },
   "dependencies": {
     "@gaucho/shared": "workspace:*",
-    "hono": "^4.12.0",
-    "@hono/node-server": "^1.13.0"
+    "@hono/node-server": "^1.13.0",
+"hono": "^4.12.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@gaucho/typescript-config": "workspace:*",
     "@types/node": "^22.0.0",
+    "@types/qrcode": "^1.5.6",
     "tsx": "^4.0.0",
     "typescript": "~5.7.0",
     "vitest": "^3.0.0"

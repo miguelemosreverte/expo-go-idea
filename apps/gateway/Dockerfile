@@ -1,26 +1,47 @@
-FROM node:20-alpine AS base
-RUN corepack enable
+# ---- Build stage ----
+FROM node:22-alpine AS build
+
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
 WORKDIR /app
 
-FROM base AS deps
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY apps/gateway/package.json ./apps/gateway/
-COPY packages/shared/package.json ./packages/shared/
-COPY packages/typescript-config/*.json ./packages/typescript-config/
+# Copy workspace root files
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
+
+# Copy only the packages needed for gateway
+COPY packages/ packages/
+COPY apps/gateway/package.json apps/gateway/
+
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-FROM base AS builder
-COPY --from=deps /app/ ./
-COPY turbo.json ./
-COPY packages/typescript-config/ ./packages/typescript-config/
-COPY packages/shared/ ./packages/shared/
-COPY apps/gateway/ ./apps/gateway/
+# Copy gateway source
+COPY apps/gateway/ apps/gateway/
+
+# Build shared first, then gateway
 RUN pnpm turbo build --filter=@gaucho/gateway...
 
-FROM node:20-alpine
+# ---- Production stage ----
+FROM node:22-slim AS production
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd -r gaucho && useradd -r -g gaucho -m gaucho
+
 WORKDIR /app
-COPY --from=builder /app/apps/gateway/dist ./dist
-COPY --from=builder /app/apps/gateway/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
+
+COPY --from=build /app/package.json /app/pnpm-workspace.yaml ./
+COPY --from=build /app/apps/gateway/dist apps/gateway/dist
+COPY --from=build /app/apps/gateway/package.json apps/gateway/
+COPY --from=build /app/apps/gateway/node_modules apps/gateway/node_modules
+COPY --from=build /app/packages packages
+COPY --from=build /app/node_modules node_modules
+
+USER gaucho
+
 EXPOSE 3000
-CMD ["node", "dist/index.js"]
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=5 \
+  CMD curl -f http://localhost:3000/health || exit 1
+
+CMD ["node", "apps/gateway/dist/index.js"]

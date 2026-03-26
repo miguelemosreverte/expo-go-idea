@@ -1,7 +1,8 @@
 .PHONY: help setup dev test test-unit test-integration test-e2e \
         lint typecheck build clean \
-        docker-up docker-down docker-logs \
-        build-mobile-ios build-mobile-android build-gateway demo
+        docker-up docker-down docker-logs docker-build docker-prod \
+        build-mobile-ios build-mobile-android build-gateway demo \
+        test-all ci
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-25s\033[0m %s\n", $$1, $$2}'
@@ -63,6 +64,16 @@ build-mobile-android: ## EAS Build Android
 
 build-gateway: ## Docker build gateway image
 	docker build -f apps/gateway/Dockerfile -t gaucho-gateway .
+
+docker-build: ## Build Docker images
+	docker compose build
+
+docker-prod: ## Start production stack (with resource limits)
+	docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+test-all: test-unit test-integration ## Run unit + integration tests
+
+ci: lint typecheck test-unit ## CI pipeline: lint + typecheck + test
 
 demo: docker-up ## Full demo: Docker + seed + open
 	@./scripts/demo/seed-demo-project.sh

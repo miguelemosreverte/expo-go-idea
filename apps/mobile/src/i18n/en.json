@@ -9,5 +9,108 @@
   },
   "app": {
     "name": "GauchoCowork"
+  },
+  "login": {
+    "subtitle": "Enter your password to connect",
+    "password": "Password",
+    "connect": "Connect",
+    "error": "Wrong password or server unavailable"
+  },
+  "sessions": {
+    "title": "Sessions",
+    "empty": "No sessions yet",
+    "untitled": "Untitled",
+    "loadError": "Could not load sessions",
+    "createError": "Could not create session"
+  },
+  "session": {
+    "defaultTitle": "New session",
+    "empty": "Send a message to get started",
+    "inputPlaceholder": "Type a message...",
+    "loadError": "Could not load session",
+    "sendError": "Could not send message"
+  },
+  "permission": {
+    "title": "Permission required",
+    "tool": "Tool",
+    "args": "Arguments",
+    "allow": "Allow",
+    "deny": "Deny",
+    "error": "Could not respond to permission"
+  },
+  "servers": {
+    "title": "Servers",
+    "empty": "No saved servers",
+    "add": "Add server",
+    "scanQR": "Scan QR",
+    "namePlaceholder": "Server name",
+    "urlPlaceholder": "URL (e.g. http://192.168.1.10:3000)",
+    "removeTitle": "Remove server",
+    "removeMessage": "Are you sure you want to remove this server?",
+    "qrPlaceholder": "QR scanner coming soon"
+  },
+  "scanQR": {
+    "instruction": "Scan the server QR code"
+  },
+  "workspaces": {
+    "title": "Workspaces",
+    "empty": "No workspaces available",
+    "loadError": "Could not load workspaces",
+    "switchError": "Could not switch workspace"
+  },
+  "templates": {
+    "title": "Templates",
+    "empty": "No templates available",
+    "local": "Local",
+    "synced": "Synced",
+    "use": "Use",
+    "placeholders": "Variables",
+    "deleteTitle": "Delete template",
+    "deleteMessage": "Are you sure you want to delete this template?",
+    "loadError": "Could not load templates"
+  },
+  "notifications": {
+    "permissionDenied": "Notification permissions required",
+    "registered": "Notifications enabled",
+    "permissionRequest": "Permission required",
+    "sessionUpdate": "Session update"
+  },
+  "browser": {
+    "title": "Browser",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "tabs": "{{count}} tabs",
+    "url": "Current URL",
+    "screenshot": "Screenshot",
+    "refresh": "Refresh",
+    "noScreenshot": "No screenshot available",
+    "pendingActions": "Pending actions",
+    "approve": "Approve",
+    "deny": "Deny",
+    "loadError": "Could not load browser status",
+    "screenshotError": "Could not refresh screenshot",
+    "actionError": "Could not process action"
+  },
+  "skills": {
+    "title": "Skills & Plugins",
+    "skillsSection": "Skills",
+    "pluginsSection": "Plugins",
+    "loadError": "Could not load skills",
+    "toggleError": "Could not toggle state",
+    "configError": "Could not save configuration",
+    "noConfig": "No configuration available"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "serverInfo": "Server",
+    "gatewayHealth": "Gateway health",
+    "healthOk": "Operational",
+    "healthDegraded": "Degraded",
+    "healthError": "Error",
+    "version": "App version",
+    "disconnect": "Disconnect",
+    "disconnectTitle": "Disconnect",
+    "disconnectMessage": "Are you sure you want to disconnect from the server?"
   }
 }

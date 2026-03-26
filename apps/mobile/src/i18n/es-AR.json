@@ -9,5 +9,108 @@
   },
   "app": {
     "name": "GauchoCowork"
+  },
+  "login": {
+    "subtitle": "Ingresá tu contraseña para conectar",
+    "password": "Contraseña",
+    "connect": "Conectar",
+    "error": "Contraseña incorrecta o servidor no disponible"
+  },
+  "sessions": {
+    "title": "Sesiones",
+    "empty": "No hay sesiones todavía",
+    "untitled": "Sin título",
+    "loadError": "No se pudieron cargar las sesiones",
+    "createError": "No se pudo crear la sesión"
+  },
+  "session": {
+    "defaultTitle": "Nueva sesión",
+    "empty": "Enviá un mensaje para empezar",
+    "inputPlaceholder": "Escribí un mensaje...",
+    "loadError": "No se pudo cargar la sesión",
+    "sendError": "No se pudo enviar el mensaje"
+  },
+  "permission": {
+    "title": "Permiso requerido",
+    "tool": "Herramienta",
+    "args": "Argumentos",
+    "allow": "Permitir",
+    "deny": "Denegar",
+    "error": "No se pudo responder al permiso"
+  },
+  "servers": {
+    "title": "Servidores",
+    "empty": "No hay servidores guardados",
+    "add": "Agregar servidor",
+    "scanQR": "Escanear QR",
+    "namePlaceholder": "Nombre del servidor",
+    "urlPlaceholder": "URL (ej: http://192.168.1.10:3000)",
+    "removeTitle": "Eliminar servidor",
+    "removeMessage": "¿Seguro que querés eliminar este servidor?",
+    "qrPlaceholder": "Escáner QR próximamente"
+  },
+  "scanQR": {
+    "instruction": "Escaneá el código QR del servidor"
+  },
+  "workspaces": {
+    "title": "Espacios de trabajo",
+    "empty": "No hay espacios de trabajo",
+    "loadError": "No se pudieron cargar los espacios de trabajo",
+    "switchError": "No se pudo cambiar el espacio de trabajo"
+  },
+  "templates": {
+    "title": "Plantillas",
+    "empty": "No hay plantillas disponibles",
+    "local": "Local",
+    "synced": "Sincronizada",
+    "use": "Usar",
+    "placeholders": "Variables",
+    "deleteTitle": "Eliminar plantilla",
+    "deleteMessage": "¿Seguro que querés eliminar esta plantilla?",
+    "loadError": "No se pudieron cargar las plantillas"
+  },
+  "notifications": {
+    "permissionDenied": "Se necesitan permisos de notificación",
+    "registered": "Notificaciones activadas",
+    "permissionRequest": "Permiso requerido",
+    "sessionUpdate": "Actualización de sesión"
+  },
+  "browser": {
+    "title": "Navegador",
+    "connected": "Conectado",
+    "disconnected": "Desconectado",
+    "tabs": "{{count}} pestañas",
+    "url": "URL actual",
+    "screenshot": "Captura de pantalla",
+    "refresh": "Actualizar",
+    "noScreenshot": "Sin captura disponible",
+    "pendingActions": "Acciones pendientes",
+    "approve": "Aprobar",
+    "deny": "Denegar",
+    "loadError": "No se pudo cargar el estado del navegador",
+    "screenshotError": "No se pudo actualizar la captura",
+    "actionError": "No se pudo procesar la acción"
+  },
+  "skills": {
+    "title": "Skills y Plugins",
+    "skillsSection": "Skills",
+    "pluginsSection": "Plugins",
+    "loadError": "No se pudieron cargar los skills",
+    "toggleError": "No se pudo cambiar el estado",
+    "configError": "No se pudo guardar la configuración",
+    "noConfig": "Sin configuración disponible"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "serverInfo": "Servidor",
+    "gatewayHealth": "Estado del gateway",
+    "healthOk": "Funcionando",
+    "healthDegraded": "Degradado",
+    "healthError": "Error",
+    "version": "Versión de la app",
+    "disconnect": "Desconectar",
+    "disconnectTitle": "Desconectar",
+    "disconnectMessage": "¿Seguro que querés desconectarte del servidor?"
   }
 }
