@@ -8,7 +8,7 @@
     "build": "echo 'mobile: use EAS Build for native builds'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "echo 'no lint config yet'",
+    "lint": "eslint app/ src/",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

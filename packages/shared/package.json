@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "lint": "echo 'no lint config yet'"
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@gaucho/typescript-config": "workspace:*",

@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "echo 'no lint config yet'",
+    "lint": "eslint src/",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
