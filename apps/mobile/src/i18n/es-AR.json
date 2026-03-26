@@ -1,0 +1,13 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar"
+  },
+  "app": {
+    "name": "GauchoCowork"
+  }
+}

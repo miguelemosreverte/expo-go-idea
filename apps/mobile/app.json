@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "GauchoCowork",
+    "slug": "gaucho-cowork",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "gauchocowork",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gaucho.cowork"
+    },
+    "android": {
+      "package": "com.gaucho.cowork"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": ["expo-router"]
+  }
+}
