@@ -4,6 +4,7 @@ import app from '../app.js';
 describe('GET /health', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
+    process.env['OPENCODE_HOST'] = 'localhost';
   });
 
   it('returns degraded when OpenCode is unreachable', async () => {

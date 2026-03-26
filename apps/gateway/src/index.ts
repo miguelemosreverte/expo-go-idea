@@ -1,5 +1,4 @@
 import { serve } from '@hono/node-server';
-import QRCode from 'qrcode';
 import app from './app.js';
 import { getLanIp } from './routes/discovery.js';
 
@@ -15,10 +14,12 @@ serve({ fetch: app.fetch, port, hostname: '0.0.0.0' }, async (info) => {
   console.log('');
 
   try {
-    const qr = await QRCode.toString(payload, { type: 'terminal', small: true });
+    // @ts-expect-error optional dep for local dev
+    const QRCode = await import('qrcode');
+    const qr = await QRCode.default.toString(payload, { type: 'terminal', small: true });
     console.log(qr);
   } catch {
-    console.log('(Could not render QR in terminal)');
+    console.log('(Install qrcode package for terminal QR: pnpm add qrcode)');
   }
 
   console.log(`  URL:      ${url}`);
