@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway",
+  "installCommand": "pnpm install && pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway",
   "rewrites": [
     { "source": "/(.*)", "destination": "/api" }
   ]
