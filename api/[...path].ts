@@ -1,4 +1,5 @@
-import { handle } from 'hono/vercel';
-import app from '../apps/gateway/src/app.js';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default handle(app);
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  res.status(200).json({ ok: true, path: req.url });
+}
