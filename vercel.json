@@ -2,8 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install",
   "buildCommand": "pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway",
-  "outputDirectory": ".",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/(.*)", "destination": "/api" }
   ]
 }
