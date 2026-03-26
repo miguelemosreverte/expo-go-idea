@@ -1,6 +1,5 @@
 import { Hono } from 'hono';
 import os from 'node:os';
-import QRCode from 'qrcode';
 
 function getLanIp(): string {
   const interfaces = os.networkInterfaces();
@@ -25,7 +24,8 @@ discovery.get('/', async (c) => {
   const password = process.env['GATEWAY_PASSWORD'] ?? process.env['JWT_SECRET'] ?? 'change-me-in-production';
   const payload = JSON.stringify({ url, name: 'GauchoCowork' });
 
-  const qrSvg = await QRCode.toString(payload, { type: 'svg', width: 300 });
+  const QRCode = await import('qrcode');
+  const qrSvg = await QRCode.default.toString(payload, { type: 'svg', width: 300 });
 
   const html = `<!DOCTYPE html>
 <html>
