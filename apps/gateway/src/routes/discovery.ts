@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
-import os from 'node:os';
+import { networkInterfaces } from 'node:os';
 
 function getLanIp(): string {
-  const interfaces = os.networkInterfaces();
+  const interfaces = networkInterfaces();
   for (const name of Object.keys(interfaces)) {
     const addrs = interfaces[name];
     if (!addrs) continue;
@@ -24,20 +24,25 @@ discovery.get('/', async (c) => {
   const password = process.env['GATEWAY_PASSWORD'] ?? process.env['JWT_SECRET'] ?? 'change-me-in-production';
   const payload = JSON.stringify({ url, name: 'GauchoCowork' });
 
-  const QRCode = await import('qrcode');
-  const qrSvg = await QRCode.default.toString(payload, { type: 'svg', width: 300 });
-
   const html = `<!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GauchoCowork - Discovery</title></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GauchoCowork - Discovery</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"><\/script>
+</head>
 <body style="margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#1a1a2e;color:#fff;font-family:system-ui,sans-serif">
   <h1 style="margin-bottom:8px">GauchoCowork</h1>
   <p style="margin:0 0 24px;opacity:0.7">Escaneá este código con la app</p>
-  <div style="background:#fff;padding:16px;border-radius:12px">${qrSvg}</div>
+  <div id="qr" style="background:#fff;padding:16px;border-radius:12px"></div>
   <p style="margin:24px 0 4px;font-size:14px;opacity:0.6">Servidor</p>
   <p style="margin:0;font-size:18px;font-family:monospace">${url}</p>
   <p style="margin:16px 0 4px;font-size:14px;opacity:0.6">Contraseña</p>
   <p style="margin:0;font-size:18px;font-family:monospace">${password}</p>
+  <script>
+    var qr = qrcode(0, 'M');
+    qr.addData(${JSON.stringify(payload)});
+    qr.make();
+    document.getElementById('qr').innerHTML = qr.createSvgTag(8);
+  <\/script>
 </body>
 </html>`;
 
