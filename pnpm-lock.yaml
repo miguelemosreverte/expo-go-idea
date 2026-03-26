@@ -15,6 +15,15 @@ importers:
         specifier: ~5.7.0
         version: 5.7.3
 
+  packages/shared:
+    devDependencies:
+      '@gaucho/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: ~5.7.0
+        version: 5.7.3
+
   packages/typescript-config: {}
 
 packages:
