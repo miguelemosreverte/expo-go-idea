@@ -1,0 +1,20 @@
+services:
+  opencode:
+    image: golang:1.22-alpine
+    working_dir: /workspace
+    command: >
+      sh -c "apk add --no-cache curl git &&
+             curl -fsSL https://opencode.ai/install | sh &&
+             opencode serve --hostname 0.0.0.0 --port 4096 --cors '*'"
+    ports:
+      - '4096:4096'
+    volumes:
+      - ./demo-project:/workspace
+    environment:
+      - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:-opencode}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4096/global/health']
+      interval: 5s
+      timeout: 5s
+      retries: 20

@@ -1,0 +1,41 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+      - OPENCODE_HOST=opencode
+      - OPENCODE_PORT=4096
+      - JWT_SECRET=${JWT_SECRET:-dev-secret}
+      - GATEWAY_PASSWORD=${GATEWAY_PASSWORD:-gaucho}
+    depends_on:
+      opencode:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  opencode:
+    image: golang:1.22-alpine
+    working_dir: /workspace
+    command: >
+      sh -c "apk add --no-cache curl git &&
+             curl -fsSL https://opencode.ai/install | sh &&
+             opencode serve --hostname 0.0.0.0 --port 4096 --cors http://localhost:3000"
+    ports:
+      - '4096:4096'
+    volumes:
+      - ./demo-project:/workspace
+    environment:
+      - OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD:-opencode}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:4096/global/health']
+      interval: 10s
+      timeout: 5s
+      retries: 10
