@@ -51,21 +51,23 @@ app.use('*', rateLimitMiddleware);
 
 // Health check (public) - checks OpenCode connectivity
 app.get('/health', async (c) => {
-  const host = process.env['OPENCODE_HOST'] ?? 'localhost';
+  const host = process.env['OPENCODE_HOST'];
   const port = process.env['OPENCODE_PORT'] ?? '4096';
   let opencodeStatus: 'connected' | 'disconnected' = 'disconnected';
-  let status: 'ok' | 'degraded' = 'degraded';
+  let status: 'ok' | 'degraded' = host ? 'degraded' : 'ok';
 
-  try {
-    const res = await fetch(`http://${host}:${port}/global/health`, {
-      signal: AbortSignal.timeout(1500),
-    });
-    if (res.ok) {
-      opencodeStatus = 'connected';
-      status = 'ok';
+  if (host) {
+    try {
+      const res = await fetch(`http://${host}:${port}/global/health`, {
+        signal: AbortSignal.timeout(1500),
+      });
+      if (res.ok) {
+        opencodeStatus = 'connected';
+        status = 'ok';
+      }
+    } catch {
+      // OpenCode unreachable
     }
-  } catch {
-    // OpenCode unreachable
   }
 
   const health: GatewayHealth = {
