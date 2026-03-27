@@ -46,17 +46,16 @@ await esbuild.build({
     loader: 'ts',
   },
   bundle: true,
-  outfile: '.vercel/output/functions/api/catchall.func/index.mjs',
+  outfile: '.vercel/output/functions/api/catchall.func/index.js',
   platform: 'node',
   target: 'node20',
-  format: 'esm',
-  banner: { js: 'import { createRequire } from "module"; const require = createRequire(import.meta.url);' },
+  format: 'cjs',
 });
 
 // Write the function config
 writeFileSync('.vercel/output/functions/api/catchall.func/.vc-config.json', JSON.stringify({
   runtime: 'nodejs22.x',
-  handler: 'index.mjs',
+  handler: 'index.js',
   launcherType: 'Nodejs',
   shouldAddHelpers: true,
   shouldAddSourcemapSupport: false,
