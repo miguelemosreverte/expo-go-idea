@@ -5,9 +5,42 @@ import { mkdirSync, writeFileSync } from 'fs';
 await esbuild.build({
   stdin: {
     contents: `
-      import { handle } from 'hono/vercel';
       import app from './apps/gateway/src/app.js';
-      export default handle(app);
+
+      // Node.js serverless handler for Vercel Build Output API
+      export default async function handler(req, res) {
+        try {
+          const url = new URL(req.url, \`http://\${req.headers.host}\`);
+          const headers = new Headers();
+          for (const [key, value] of Object.entries(req.headers)) {
+            if (value) headers.set(key, Array.isArray(value) ? value.join(', ') : value);
+          }
+
+          let body = null;
+          if (req.method !== 'GET' && req.method !== 'HEAD') {
+            body = await new Promise((resolve) => {
+              const chunks = [];
+              req.on('data', (c) => chunks.push(c));
+              req.on('end', () => resolve(Buffer.concat(chunks)));
+            });
+          }
+
+          const request = new Request(url.toString(), {
+            method: req.method,
+            headers,
+            body,
+          });
+
+          const response = await app.fetch(request);
+
+          res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
+          const responseBody = await response.arrayBuffer();
+          res.end(Buffer.from(responseBody));
+        } catch (e) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: String(e) }));
+        }
+      }
     `,
     resolveDir: '.',
     loader: 'ts',
@@ -22,8 +55,8 @@ await esbuild.build({
 
 // Write the function config
 writeFileSync('.vercel/output/functions/api/catchall.func/.vc-config.json', JSON.stringify({
-  runtime: 'nodejs20.x',
-  handler: 'index.mjs',
+  runtime: 'nodejs22.x',
+  handler: 'index.default',
   launcherType: 'Nodejs',
 }));
 
