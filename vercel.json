@@ -1,7 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "corepack enable && pnpm install && pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway",
-  "buildCommand": "echo done",
-  "outputDirectory": "public"
+  "installCommand": "corepack enable && pnpm install",
+  "buildCommand": "pnpm turbo build --filter=@gaucho/shared && pnpm turbo build --filter=@gaucho/gateway && node scripts/build-vercel.mjs"
 }
