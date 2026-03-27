@@ -56,8 +56,10 @@ await esbuild.build({
 // Write the function config
 writeFileSync('.vercel/output/functions/api/catchall.func/.vc-config.json', JSON.stringify({
   runtime: 'nodejs22.x',
-  handler: 'index.default',
+  handler: 'index.mjs',
   launcherType: 'Nodejs',
+  shouldAddHelpers: true,
+  shouldAddSourcemapSupport: false,
 }));
 
 // Write the output config with catch-all routing
